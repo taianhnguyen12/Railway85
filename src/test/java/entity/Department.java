@@ -24,9 +24,15 @@ public class Department {
     @Column(name = "name", length = 50, unique = true, nullable = false)
     private String name;
 
+    @Column(name = "type",nullable = false)
+    @Enumerated(EnumType.ORDINAL)
+    private Type type;
+
+
     @Column(name = "create_at",nullable = false, updatable = false)
     @CreationTimestamp // tự động cập nhật
     private LocalDateTime createAt;
+
 
     @Column(name = "update_at",nullable = false)
     @UpdateTimestamp
@@ -35,5 +41,9 @@ public class Department {
     @PrePersist
     public void prepersist() {
         System.out.println("trươc khi thêm vào database");
+    }
+
+    public enum Type {
+        DEV,TES,KES,MASTER,PROJECT
     }
 }
