@@ -1,14 +1,19 @@
 package entity;
 
 
+import converter.DepartmentTypeConverter;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.JdbcType;
 import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.type.descriptor.jdbc.CharJdbcType;
+import org.hibernate.type.descriptor.jdbc.UUIDJdbcType;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @Getter
 @Setter
@@ -18,14 +23,23 @@ import java.time.LocalDateTime;
 public class Department {
     @Id
     @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JdbcType(CharJdbcType.class)
+//    @SequenceGenerator(
+//            name = "department_id_generator",
+//            sequenceName = "department_id_sequence",
+//            initialValue = 5,
+//            allocationSize = 1
+//    )
+//    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+//     generator ="department_id_generator")
+    private UUID id;
 
     @Column(name = "name", length = 50, unique = true, nullable = false)
     private String name;
 
     @Column(name = "type",nullable = false)
-    @Enumerated(EnumType.ORDINAL)
+    @Convert( converter = DepartmentTypeConverter.class)
     private Type type;
 
 
