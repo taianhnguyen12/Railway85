@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Setter
 @Getter
@@ -20,7 +22,7 @@ public class Group {
     private String name;
 
 
-    @OneToOne(mappedBy = "group")
-    private Account account;
+    @OneToMany(mappedBy = "group")
+    private List<Account> accounts;
 
 }

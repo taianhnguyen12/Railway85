@@ -22,11 +22,11 @@ public class Account {
     private String email;
 
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(
             name = "group_id",
             referencedColumnName = "id",
-            unique=true,
+
             nullable=false
     )
     private Group group;
